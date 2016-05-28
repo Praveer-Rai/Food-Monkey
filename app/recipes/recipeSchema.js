@@ -4,14 +4,14 @@ var Schema = mongoose.Schema;
 
 var recipeSchema = new Schema ({
     //image:
-    preparationTime: number,
-    cookingTime: number,
-    difficulty: {type: string, enum: ['beginner friendly', 'experienced', 'master chefs'], default: 'beginner friendly'},
+    prepTime: {type: Number, min: 1},
+    cookTime: {type: Number, min: 1},
+    difficulty: {type: String, enum: ['beginner friendly', 'experienced', 'master chefs'], default: 'beginner friendly'},
     ingredients: [String],
     directions: [String],
     createdBy: {type: Schema.Types.ObjectId, ref: 'User'},
     createdOn: {type: Date, default: Date.now},
-    rating: number
+    rating: {type: Number, default: 0}
 
 });
 

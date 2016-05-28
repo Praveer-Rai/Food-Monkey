@@ -29,7 +29,7 @@ var app = express();
  * app setup
  */
 
-//app.use(cors());
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -37,23 +37,23 @@ app.use(bodyParser.urlencoded({
 
 
 //passport
-/*
+
 var passport = require('passport');
-var jwtConfig = require('./passport/jwtConfig');
+var jwtConfig = require('./app/passport/jwtConfig');
 
 app.use(passport.initialize());
 jwtConfig(passport);
-*/
+
 
 /**
  * routing
  */
 
 var userRoutes = require("./app/users/userRoutes")(app, express);
-//var recipeRoutes = require("./app/movies/recipeRoutes")(app, express);
+var recipeRoutes = require("./app/recipes/recipeRoutes");
 
-//app.use('/api', movieRoutes(passport));
 app.use('/', userRoutes);
+app.use('/api', recipeRoutes(passport));
 
 app.get('*', function(req,res){
     res.sendfile('./public/index.html');

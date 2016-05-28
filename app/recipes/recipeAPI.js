@@ -1,0 +1,64 @@
+var Config = require ('../../config/config.dev_local');
+var Recipes = require('./recipeSchema');
+
+module.exports.getAllRecipes = function(req, res){
+    Recipes.find(function(err, recipes){
+        if (err){
+            res.status(500).send(err);
+        } else {
+            res.json(recipes);
+        }
+    })
+};
+
+module.exports.getRecipe = function(req, res){
+    Recipes.findById(req.params.recipe_id, function(err, recipe) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        };
+
+        res.json(recipe);
+    });
+};
+
+module.exports.createRecipe = function(req, res){
+
+    var recipe = new Recipes({
+        prepTime: req.body.prepTime,
+        cookTime: req.body.cookTime,
+        difficulty: req.body.difficulty,
+        ingredients: req.body.ingredients,
+        directions: req.body.directions
+    });
+
+    if (!req.user.equals(recipe.user)) {
+        res.sendStatus(401);
+    }
+
+    recipe.save(function(err, m) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+
+        res.status(201).json(m);
+    });
+};
+
+module.exports.deleteRecipe = function(req, res){
+    Recipes.findById(req.params.recipe_id, function(err, m) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        //authorize
+        if (m.user && req.user.equals(m.user)) {
+            m.remove();
+            res.sendStatus(200);
+        } else {
+            res.sendStatus(401);
+        }
+
+    });
+};

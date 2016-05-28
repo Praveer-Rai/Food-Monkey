@@ -1,22 +1,18 @@
 var config = require ('../../config/config.dev_local');
 var Users = require ('./userSchema');
 var secretKey = config.supersecretKey;
-var jsonwebtoken = require('jsonwebtoken');
+var jwt = require('jwt-simple');
 var express = require('express');
 
 function createToken (user){
-    var token = jsonwebtoken.sign({
+    var tokenPayload = {
+        user: {
+            _id: user._id,
+            username: user.username
+        }
 
-        //informations to decode
-        id: user._id,
-        name: user.name,
-        username: user.username
-
-    }, secretKey, {
-        expiresIn: '30m'
-    });
-
-    return token;
+    };
+    return jwt.encode(tokenPayload, secretKey);
 }
 
 module.exports.signup = function(req,res){
@@ -98,8 +94,7 @@ module.exports.login = function(req, res){
     })
 };
 
-/*
-api.deregister = function(req, res){
+module.exports.deregister = function(req, res){
     req.user.remove()
         .then(function(){
             res.status(200).send({message: "User successfully removed"})
@@ -107,4 +102,3 @@ api.deregister = function(req, res){
             res.status(500).send(err);
         };
 };
-    */

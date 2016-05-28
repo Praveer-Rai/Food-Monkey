@@ -31,9 +31,9 @@ module.exports.signup = function(req,res){
     }
 
     var user = new Users({
-        name: req.name,
-        username: req.username,
-        password: req.password
+        name: req.body.name,
+        username: req.body.username,
+        password: req.body.password
     });
 
     var token = createToken(user);
@@ -44,7 +44,7 @@ module.exports.signup = function(req,res){
             res.send(err);
             return;
         }
-
+        else
         res.json({
             success: true,
             message: 'User has been successfully created!',

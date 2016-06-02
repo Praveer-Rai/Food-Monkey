@@ -12,11 +12,10 @@ module.exports = function(passport){
     //middleware
     router.use(mw.unless({method: ['GET', 'OPTIONS']}));
 
-    router.route('/recipes')
-        .post(recipeAPI.createRecipe())
-        .get(recipeAPI.getAllRecipes());
+    router.post('/create_recipe', recipeAPI.createRecipe);
+    router.get('/all_recipes', recipeAPI.getAllRecipes);
 
-    router.route('/recipes/:recipe_id')
-        .get(recipeAPI.getRecipe());
+    router.get('/recipes/:recipe_id', recipeAPI.getRecipe);
 
+    return router;
 };

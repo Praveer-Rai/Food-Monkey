@@ -1,1 +1,61 @@
-Hello World!
+<!DOCTYPE html>
+<html ng-app = 'mainApp'>
+
+<head>
+    <base href = '/'>
+    <title>Food Monkey</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+    <script src = "http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
+    <script src = "/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.9/angular-material.js"></script>
+
+    <!-- Services -->
+    <script src = "components/users/userService.js"></script>
+    <script src = "components/users/authService.js"></script>
+    <script src = "components/users/authInterceptor.js"></script>
+
+    <!-- Controllers -->
+    <script src="components/users/userController.js"></script>
+    <script src="components/users/authController.js"></script>
+
+
+    <!-- Directives -->
+
+    <script src="mainApp.js"></script>
+
+
+</head>
+<body>
+
+<header>
+
+    <div class = "navbar navbar-default">
+        <div class = "container">
+            <div class = "navbar-header">
+                <a href = '/' class = "navbar-brand">Food Monkey</a>
+            </div>
+
+            <ul class = "nav navbar-nav">
+
+            </ul>
+
+            <ul class = "nav navbar-nav navbar-right">
+                <li ng-if="!auth.loggedIn"><a href = '/login'>Login</a></li>
+                <li ng-if="!auth.loggedIn"><a href = '/signup'>Signup</a></li>
+                <li ng-if="auth.loggedIn"><a href = '#'><span class = "glyphicon glyphicon-user"></span>Hello, {{auth.user.username}}</a></li>
+                <li ng-if="auth.loggedIn"><a href = '/' ng-click="auth.doLogout()">Logout</a></li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</header>
+
+<main ui-view></main>
+
+</body>
+
+</html>

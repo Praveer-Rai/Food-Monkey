@@ -25,6 +25,7 @@ module.exports.getRecipe = function(req, res){
 module.exports.createRecipe = function(req, res){
 
     var recipe = new Recipes({
+        title: req.body.title,
         prepTime: req.body.prepTime,
         cookTime: req.body.cookTime,
         difficulty: req.body.difficulty,
@@ -32,17 +33,13 @@ module.exports.createRecipe = function(req, res){
         directions: req.body.directions
     });
 
-    if (!req.user.equals(recipe.user)) {
-        res.sendStatus(401);
-    }
-
-    recipe.save(function(err, m) {
+    recipe.save(function(err) {
         if (err) {
             res.status(500).send(err);
             return;
         }
 
-        res.status(201).json(m);
+        res.json('New Recipe Created!');
     });
 };
 

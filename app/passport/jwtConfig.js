@@ -5,7 +5,7 @@ var Config = require('../../config/config.dev_local');
 
 
 var opts = {};
-opts.jwtFromRequest = ExtractJwt.fromAuthHeader();
+opts.jwtFromRequest = ExtractJwt.fromHeader('token');
 opts.secretOrKey = Config.supersecretKey;
 
 function verifyJwt(jwtPayload, done) {

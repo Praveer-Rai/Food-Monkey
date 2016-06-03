@@ -44,6 +44,7 @@ var jwtConfig = require('./app/passport/jwtConfig');
 app.use(passport.initialize());
 jwtConfig(passport);
 
+app.use(express.static(__dirname + '/public'));
 
 /**
  * routing
@@ -53,7 +54,7 @@ var userRoutes = require("./app/users/userRoutes")(app, express);
 var recipeRoutes = require("./app/recipes/recipeRoutes");
 
 app.use('/', userRoutes);
-app.use('/api', recipeRoutes(passport));
+app.use('/recipes', recipeRoutes(passport));
 
 app.get('*', function(req,res){
     res.sendfile('./public/index.html');

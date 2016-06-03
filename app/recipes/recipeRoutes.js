@@ -15,7 +15,7 @@ module.exports = function(passport){
     router.post('/create_recipe', recipeAPI.createRecipe);
     router.get('/all_recipes', recipeAPI.getAllRecipes);
 
-    router.get('/recipes/:recipe_id', recipeAPI.getRecipe);
+    router.get('/:recipe_id', recipeAPI.getRecipe);
 
     return router;
 };

@@ -1,27 +1,26 @@
 // Declare app level module which depends on views, and components
-angular.module('mainApp', ['ui.router', 'ngRouter', 'userCTRL', 'authCTRL', 'userService', 'authService', 'authInterceptor'])
+angular.module('mainApp', ['ui.router', 'userCTRL', 'authCTRL', 'userService', 'authService', 'authInterceptor'])
 
     .config(function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
 
-        // For any unmatched url, redirect to home
         $urlRouterProvider.otherwise("/");
 
         $stateProvider
             .state('home', {
                 url: '/',
-                templateUrl: 'views/home.html',
+                templateUrl: './views/home.html',
                 controller: 'AuthController',
                 controllerAs: 'auth'
             })
             .state('login',{
                 url: '/login',
-                templateUrl: 'views/login.html',
+                templateUrl: './views/login.html',
                 controller: 'AuthController',
                 controllerAs: 'auth'
             })
             .state('signup', {
                 url: '/signup',
-                templateUrl: 'views/signup.html',
+                templateUrl: './views/signup.html',
                 controller: 'UserController',
                 controllerAs: 'user'
             });
@@ -45,9 +44,10 @@ angular.module('mainApp', ['ui.router', 'ngRouter', 'userCTRL', 'authCTRL', 'use
         });
         */
 
+
         //$httpProvider.interceptors.push('reqErrInterceptor');
         //auth interceptor
-        $httpProvider.interceptors.push('authInterceptor');
+        $httpProvider.interceptors.push('authInterceptorFactory');
 
         /*
          $breadcrumbProvider.setOptions({

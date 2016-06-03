@@ -1,4 +1,4 @@
-angular.module('authCTRL', [])
+angular.module('authCTRL', ['authService'])
 
 .controller('AuthController', function($scope, $location, Auth){
 
@@ -14,4 +14,4 @@ angular.module('authCTRL', [])
         .logout = function(){
             Auth.logout().success($location.path('/'));
         }
-})
+});

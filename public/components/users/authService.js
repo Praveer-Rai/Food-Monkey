@@ -1,17 +1,17 @@
 angular.module('authService', [])
 
-.factory('Auth', function($window, $http, User){
+.factory('Auth', function($window, $http){
 
     this.getToken = function(){
-        return $window.localStorage.getItem('jwt');
+        return $window.localStorage.getItem('token');
     };
 
     this.setToken = function(jwt){
-        $window.localStorage.setItem('jwt', jwt);
+        $window.localStorage.setItem('token', jwt);
     };
 
     this.removeToken = function(){
-        $window.localStorage.removeItem('jwt');
+        $window.localStorage.removeItem('token');
     };
 
     this.isLoggedIn = function(){
@@ -20,10 +20,10 @@ angular.module('authService', [])
     };
 
     this.login = function(username, password){
-        User.login(username, password);
+        $http.post('/signup', {username: username, password: password});
     };
 
     this.logout = function(){
-        this.setToken();
+        this.removeToken();
     };
 });

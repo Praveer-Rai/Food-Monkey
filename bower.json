@@ -28,6 +28,7 @@
     "angular-ui-router": "^0.3.0",
     "material-design-icons": "^2.2.3",
     "angular-material": "^1.0.9",
-    "angular-breadcrumb": "^0.4.1"
+    "angular-breadcrumb": "^0.4.1",
+    "angular-animate": "^1.5.6"
   }
 }

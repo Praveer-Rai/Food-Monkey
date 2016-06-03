@@ -1,4 +1,4 @@
-angular.module('userCTRL', [])
+angular.module('userCTRL', ['userService'])
 
 .controller('UserController', function($scope, $window, $location, User){
 
